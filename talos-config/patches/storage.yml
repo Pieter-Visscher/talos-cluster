@@ -1,0 +1,42 @@
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: disk.dev_path == '/dev/sda'
+  maxSize: 50GB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: sata
+provisioning:
+  diskSelector:
+    match: disk.dev_path == '/dev/sda'
+  minSize: 10GB
+---
+machine:
+  install:
+    disk: /dev/sda
+  sysctls:
+    vm.nr_hugepages: "1024"
+  kernel:
+    modules:
+      - name: nvme_tcp
+      - name: vfio_pci
+  kubelet:
+    extraMounts:
+      - destination: /var/lib/longhorn
+        type: bind
+        source: /var/lib/longhorn
+        options:
+          - bind
+          - rshared
+          - rw
+  disks:
+    - device: /dev/nvme0n1
+      partitions:
+        - mountpoint: /var/mnt/nvme
+
+ #       selector:
+ #         size: "disk.size > 1GiB"

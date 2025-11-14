@@ -1,0 +1,8 @@
+machine:
+  network:
+    interfaces:
+      - interface: bond0
+        vip:
+          ip: 10.0.50.254
+cluster:
+  allowSchedulingOnControlPlanes: true

@@ -1,0 +1,15 @@
+machine:
+  network:
+    interfaces:
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer2
+          miimon: 100
+          interfaces:
+            - enp2s0
+            - enp3s0
+        vlans:
+          - vlanId: 200
+        dhcp: false

@@ -1,0 +1,13 @@
+machine:
+  network:
+    hostname: talos-controlplane-02.nauvis.lan
+    nameservers:
+      - 10.0.50.1
+    interfaces:
+      - interface: bond0
+        addresses:
+          - 10.0.50.202/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.50.1
+

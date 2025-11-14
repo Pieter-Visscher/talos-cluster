@@ -1,3 +1,7 @@
 .envrc
 terraform.tfstate*
 .terraform*
+talos-config/patches/secrets.yml
+talos-config/worker.yaml
+talos-config/controlplane.yaml
+talos-config/talosconfig
