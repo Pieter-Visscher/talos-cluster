@@ -25,12 +25,12 @@ spec:
             storageSpec:
               volumeClaimTemplate:
                 spec:
-                  storaceClassName: longhorn-2replica
+                  # Ensure this name exactly matches your deployed StorageClass
+                  storageClassName: longhorn-2replica
                   resources:
                     requests:
                       storage: 100Gi
             retention: 7d
-            
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
