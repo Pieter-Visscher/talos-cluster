@@ -7,6 +7,10 @@ module "cilium" {
   ip_pool_interface = "bond0.200"
   devices = ["bond0", "bond0.200"]
   exclusive_cni = true
+  mgt_ip_pool_start = "10.0.50.150"
+  mgt_ip_pool_end = "10.0.50.199"
+  ip_pool_mgt_interface = "bond0"
+  gateway_api_version = "v1.4.0"
 }
 
 module "longhorn" {
@@ -18,9 +22,9 @@ module "longhorn" {
 module "argocd" {
   source = "git::https://github.com/Pieter-Visscher/terraform-modules.git//argocd?ref=main"
 
-  argocd_version = "8.1.2"
+  argocd_version = "9.1.4"
 }
-#
+
 module "apps" {
   source = "./apps"
 }

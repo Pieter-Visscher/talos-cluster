@@ -1,31 +1,25 @@
-resource "kubernetes_manifest" "paperless-ngx-argocd" {
+resource "kubernetes_manifest" "network-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "paperless-ngx"
+      name = "network"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "paperless-ngx/"
+        path = "network/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "paperless-ngx"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
-        managedNamespaceMetadata = {
-          labels = {
-            gateway-access = true
-          }
-        }
         automated = {
           selfHeal = true
         }

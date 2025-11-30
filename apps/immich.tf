@@ -83,6 +83,11 @@ resource "kubernetes_manifest" "immich-helm-argocd" {
         server    = "https://kubernetes.default.svc"
       }
       syncPolicy = {
+        managedNamespaceMetadata = {
+          labels = {
+            gateway-access = true
+          }
+        }
         automated = {
           selfHeal = true
         }
