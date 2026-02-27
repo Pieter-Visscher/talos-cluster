@@ -1,36 +1,29 @@
-resource "kubernetes_manifest" "pieter-fish" {
+resource "kubernetes_manifest" "multus-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "pieter-fish"
+      name = "multus"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "pieter-fish/"
+        path = "multus/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "pieter-fish-website"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
-        managedNamespaceMetadata = {
-          labels = {
-            wan-gateway-access = true
-          }
-        }
         automated = {
           selfHeal = true
         }
         syncOptions = [
-          "CreateNamespace=true"
         ]
       }
     }

@@ -1,29 +1,29 @@
-resource "kubernetes_manifest" "pieter-fish" {
+resource "kubernetes_manifest" "ai-nauvis-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "pieter-fish"
+      name = "ai-nauvis-lan"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "pieter-fish/"
+        path = "selfhosted-ai/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "pieter-fish-website"
+        namespace = "ai-nauvis"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
         managedNamespaceMetadata = {
           labels = {
-            wan-gateway-access = true
+            gateway-access = true
           }
         }
         automated = {

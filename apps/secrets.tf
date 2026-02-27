@@ -1,36 +1,29 @@
-resource "kubernetes_manifest" "pieter-fish" {
+resource "kubernetes_manifest" "secrets-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "pieter-fish"
+      name = "secrets"
     }
     spec = {
       project = "default"
       source = {
-        repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "pieter-fish/"
+        repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
+        path = "."
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "pieter-fish-website"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
-        managedNamespaceMetadata = {
-          labels = {
-            wan-gateway-access = true
-          }
-        }
         automated = {
           selfHeal = true
         }
         syncOptions = [
-          "CreateNamespace=true"
         ]
       }
     }

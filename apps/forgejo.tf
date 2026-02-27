@@ -1,29 +1,29 @@
-resource "kubernetes_manifest" "pieter-fish" {
+resource "kubernetes_manifest" "forgejo-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "pieter-fish"
+      name = "forgejo"
     }
     spec = {
       project = "default"
       source = {
-        repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "pieter-fish/"
+        repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
+        path = "forgejo/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "pieter-fish-website"
+        namespace = "forgejo"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
         managedNamespaceMetadata = {
           labels = {
-            wan-gateway-access = true
+            mgt-gateway-access = true
           }
         }
         automated = {

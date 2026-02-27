@@ -14,6 +14,17 @@ resource "kubernetes_manifest" "immich-helm-argocd" {
         targetRevision = "0.10.3"
         helm = {
           valuesObject = {
+            controllers = {
+              main = {
+                containers = {
+                  main = {
+                    image = {
+                      tag = "v2.5.3"
+                    }
+                  }
+                }
+              }
+            },
             server = {
               controllers = {
                 main = {
@@ -55,13 +66,6 @@ resource "kubernetes_manifest" "immich-helm-argocd" {
                       }
                     }
                   }
-                }
-              }
-            },
-            controllers = {
-              main = {
-                image = {
-                  tag = "v2.3.1"
                 }
               }
             },

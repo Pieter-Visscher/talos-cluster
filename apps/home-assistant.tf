@@ -1,29 +1,32 @@
-resource "kubernetes_manifest" "pieter-fish" {
+resource "kubernetes_manifest" "home-assistant-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "pieter-fish"
+      name = "home-assistant"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "pieter-fish/"
+        path = "home-assistant/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "pieter-fish-website"
+        namespace = "home-assistant"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
         managedNamespaceMetadata = {
           labels = {
-            wan-gateway-access = true
+            "pod-security.kubernetes.io/enforce" =  "privileged"
+            "pod-security.kubernetes.io/audit" = "privileged"
+            "pod-security.kubernetes.io/warn"  = "privileged"
+            gateway-access = true
           }
         }
         automated = {

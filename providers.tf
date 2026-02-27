@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "kubernetes" {
-  host = "https://10.0.50.254:6443"
+  host = "https://10.0.50.200:6443"
 
   client_certificate     = file("~/.kube/talos/client-cert.pem")
   client_key             = file("~/.kube/talos/client-key.pem")

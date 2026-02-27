@@ -1,30 +1,27 @@
-resource "kubernetes_manifest" "pieter-fish" {
+resource "kubernetes_manifest" "mc-router-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "pieter-fish"
+      name = "mc-router"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "pieter-fish/"
+        path = "mc-router/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "pieter-fish-website"
+        namespace = "minecraft"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
         managedNamespaceMetadata = {
-          labels = {
-            wan-gateway-access = true
-          }
         }
         automated = {
           selfHeal = true

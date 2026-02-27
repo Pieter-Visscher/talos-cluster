@@ -1,31 +1,26 @@
-resource "kubernetes_manifest" "pieter-fish" {
+resource "kubernetes_manifest" "intel-device-plugin-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "pieter-fish"
+      name = "inteldeviceplugins"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "pieter-fish/"
+        path = "intel-device-plugin/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "pieter-fish-website"
+        namespace = "inteldeviceplugins-system"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
-        managedNamespaceMetadata = {
-          labels = {
-            wan-gateway-access = true
-          }
-        }
         automated = {
           selfHeal = true
         }

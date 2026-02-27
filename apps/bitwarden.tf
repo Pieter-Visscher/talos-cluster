@@ -1,31 +1,30 @@
-resource "kubernetes_manifest" "pieter-fish" {
+resource "kubernetes_manifest" "bitwarden-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "pieter-fish"
+      name = "bitwarden"
     }
     spec = {
       project = "default"
       source = {
-        repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
-        path = "pieter-fish/"
-        targetRevision = "HEAD"
-        directory = {
-          recurse = true
+        repoURL = "https://charts.bitwarden.com"
+        targetRevision = "2.0.0"
+        chart = "sm-operator"
+        helm = {
+          valuesObject = {
+            settings = {
+              cloudRegion = "EU"
+            }
+          }
         }
       }
       destination = {
-        namespace = "pieter-fish-website"
+        namespace = "bitwarden"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
-        managedNamespaceMetadata = {
-          labels = {
-            wan-gateway-access = true
-          }
-        }
         automated = {
           selfHeal = true
         }
