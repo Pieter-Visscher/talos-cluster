@@ -5,7 +5,7 @@ name: EPHEMERAL
 provisioning:
   diskSelector:
     match: disk.dev_path == '/dev/sda'
-  maxSize: 50GB
+  maxSize: 100GB
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig

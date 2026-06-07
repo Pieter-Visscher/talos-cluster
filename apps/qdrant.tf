@@ -1,23 +1,23 @@
-resource "kubernetes_manifest" "paperless-ngx-argocd" {
+resource "kubernetes_manifest" "mcp-ollama-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "paperless-ngx"
+      name = "mcp-ollama"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
-        path = "paperless-ngx/"
+        path = "mcp-ollama/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "paperless-ngx"
+        namespace = "git-mcp"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {

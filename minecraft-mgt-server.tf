@@ -1,30 +1,27 @@
-resource "kubernetes_manifest" "paperless-ngx-argocd" {
+resource "kubernetes_manifest" "minecraft-mgt-server-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "paperless-ngx"
+      name = "minecrfat-mgt-server"
     }
     spec = {
       project = "default"
       source = {
-        repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
-        path = "paperless-ngx/"
+        repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
+        path = "minecraft-mgt-server/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "paperless-ngx"
+        namespace = "minecraft-mgt-server"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {
         managedNamespaceMetadata = {
-          labels = {
-            gateway-access = true
-          }
         }
         automated = {
           selfHeal = true

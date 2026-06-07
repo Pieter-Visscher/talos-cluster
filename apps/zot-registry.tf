@@ -9,7 +9,7 @@ resource "kubernetes_manifest" "zot-registry-argocd" {
     spec = {
       project = "default"
       source = {
-        repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
+        repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
         path = "zot-registry/"
         targetRevision = "HEAD"
         directory = {

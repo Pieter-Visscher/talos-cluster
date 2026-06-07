@@ -1,4 +1,6 @@
 machine:
+  nodeLabels:
+    storage/longhorn: true
   network:
     hostname: talos-controlplane-01.nauvis.lan
     nameservers:

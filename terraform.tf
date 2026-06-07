@@ -1,5 +1,5 @@
 terraform {
   backend "pg" {
-    conn_str = "postgres://10.0.50.10/terraform_talos_cluster"
+    conn_str = "postgres://127.0.0.1/terraform_talos_cluster"
   }
 }

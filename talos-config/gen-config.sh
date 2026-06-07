@@ -31,3 +31,14 @@ talosctl gen config talos https://10.0.50.254:6443 \
 	--with-docs=false \
 	--with-examples=false
 mv controlplane.yaml /var/www/html/talos/configs/config-58-47-ca-77-b3-1d.yaml
+talosctl gen config talos https://10.0.50.254:6443 \
+	--with-secrets patches/secrets.yml \
+	--config-patch @patches/cluster.yml \
+	--config-patch @patches/cmc-worker-01.yml \
+	--config-patch @patches/worker.yml \
+	--config-patch @patches/storage.yml \
+	--config-patch @patches/network.yml \
+	--config-patch @patches/patches.yml \
+	--with-docs=false \
+	--with-examples=false
+mv controlplane.yaml /var/www/html/talos/configs/config-58-47-ca-77-b3-1d.yaml

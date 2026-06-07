@@ -1,24 +1,22 @@
-resource "kubernetes_manifest" "paperless-ngx-argocd" {
+resource "kubernetes_manifest" "prometheus-operator-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "paperless-ngx"
+      name = "prometheus-operator"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
-        path = "paperless-ngx/"
+        path = "prometheus-operator/"
         targetRevision = "HEAD"
-        directory = {
-          recurse = true
-        }
+        kustomize      = {}
       }
       destination = {
-        namespace = "paperless-ngx"
         server = "https://kubernetes.default.svc"
+        namespace = "monitoring"
       }
       syncPolicy = {
         managedNamespaceMetadata = {
@@ -30,7 +28,8 @@ resource "kubernetes_manifest" "paperless-ngx-argocd" {
           selfHeal = true
         }
         syncOptions = [
-          "CreateNamespace=true"
+          "CreateNameSpace=true",
+          "ServerSideApply=true"
         ]
       }
     }

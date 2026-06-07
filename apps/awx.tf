@@ -9,7 +9,7 @@ resource "kubernetes_manifest" "awx-argocd" {
     spec = {
       project = "default"
       source = {
-        repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
+        repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
         path = "awx/"
         targetRevision = "HEAD"
         kustomize      = {}

@@ -1,0 +1,41 @@
+resource "kubernetes_manifest" "rancher-argocd" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "Application"
+    metadata = {
+      namespace = "argocd"
+      name      = "rancher"
+    }
+    spec = {
+      project = "default"
+      source = {
+        chart          = "rancher" 
+        repoURL        = "https://releases.rancher.com/server-charts/stable"
+        targetRevision = "2.14.1" 
+        helm = {
+          valuesObject = {
+            hostname = "rancher.my-domain.com"
+            bootstrapPassword = "admin"
+            ingress = {
+              enabled = false
+            }
+            tls = "external"
+          }
+        }
+      }
+      destination = {
+        namespace = "cattle-system"
+        server    = "https://kubernetes.default.svc"
+      }
+      syncPolicy = {
+        automated = {
+          selfHeal = true
+        }
+        syncOptions = [
+          "CreateNamespace=true", 
+          "ServerSideApply=true"
+        ]
+      }
+    }
+  }
+}

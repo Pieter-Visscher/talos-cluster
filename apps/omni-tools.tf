@@ -1,23 +1,23 @@
-resource "kubernetes_manifest" "paperless-ngx-argocd" {
+resource "kubernetes_manifest" "omni-tools-argocd" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
       namespace  = "argocd"
-      name = "paperless-ngx"
+      name = "omni-tools"
     }
     spec = {
       project = "default"
       source = {
         repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
-        path = "paperless-ngx/"
+        path = "omni-tools/"
         targetRevision = "HEAD"
         directory = {
           recurse = true
         }
       }
       destination = {
-        namespace = "paperless-ngx"
+        namespace = "omni-tools"
         server = "https://kubernetes.default.svc"
       }
       syncPolicy = {

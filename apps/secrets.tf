@@ -9,7 +9,7 @@ resource "kubernetes_manifest" "secrets-argocd" {
     spec = {
       project = "default"
       source = {
-        repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
+        repoURL = "ssh://git@git.pieter.fish/pieter/argocd-secrets.git"
         path = "."
         targetRevision = "HEAD"
         directory = {

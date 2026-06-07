@@ -19,7 +19,7 @@ resource "kubernetes_manifest" "immich-helm-argocd" {
                 containers = {
                   main = {
                     image = {
-                      tag = "v2.5.3"
+                      tag = "v2.7.5"
                     }
                   }
                 }
@@ -73,6 +73,9 @@ resource "kubernetes_manifest" "immich-helm-argocd" {
               enabled = true
             },
             immich = {
+              metrics = {
+                enabled = "true"
+              },
               persistence = {
                 library = {
                   existingClaim = "immich-library-pvc"
@@ -114,7 +117,7 @@ resource "kubernetes_manifest" "immich-manifests-argocd" {
     spec = {
       project = "default"
       source = {
-        repoURL = "git@github.com:Pieter-Visscher/kubernetes-argo.git"
+        repoURL = "ssh://git@git.pieter.fish/pieter/argocd-manifests.git"
         path = "immich/"
         targetRevision = "HEAD"
         kustomize      = {}
